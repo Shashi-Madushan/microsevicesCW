@@ -14,17 +14,7 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.ok(userService.register(user));
-    }
 
-    @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody Map<String, String> body) {
-        return ResponseEntity.ok(
-                userService.login(body.get("email"), body.get("password"))
-        );
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getProfile(@PathVariable Long id) {

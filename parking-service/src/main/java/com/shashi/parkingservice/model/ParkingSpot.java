@@ -16,6 +16,6 @@ public class ParkingSpot {
     private String location;
     private String zone;
     private boolean available;
-    private String type;       // e.g. "Covered", "Open"
-    private Long ownerId;      // Logical foreign key to user-service
+    private String type;
+    private Long ownerId;
 }

@@ -12,13 +12,17 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String username;
     private String email;
     private String password;
-    private String role; // DRIVER, OWNER
+    private Role role = Role.DRIVER; // DRIVER, OWNER
+
+    public  enum Role{
+        DRIVER,OWNER
+    }
 }

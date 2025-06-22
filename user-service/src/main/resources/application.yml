@@ -4,10 +4,32 @@ server:
     context-path: /user-service
 
 spring:
+  config:
+    import: "configserver:"
   application:
     name: user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/userdb?createDatabaseIfNotExist=true
+    username: root
+    password: Ijse@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    jdbc:
+      dialect: mysql
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+jwt:
+  secret: 39f0aea7-ff2e-4001-9dd8-ea981a9ee6bf
+  expiration: 3600000

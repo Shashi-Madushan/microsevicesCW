@@ -2,13 +2,21 @@ package com.shashi.userservice.services;
 
 import com.shashi.userservice.entities.User;
 import com.shashi.userservice.repository.UserRepository;
+
+
+import com.shashi.userservice.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
 
     public User register(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
@@ -17,15 +25,26 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User login(String email, String password) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public Map<String, String>  login(String email, String password) {
+        Map<String, String> response = new HashMap<>();
+        Optional<User> optionalUser = userRepository.findByEmail(email);
 
+        if (!optionalUser.isPresent()) {
+            response.put("error", "User not found");
+            return response;
+        }
+        User user = optionalUser.get();
         if (!user.getPassword().equals(password)) {
-            throw new RuntimeException("Invalid credentials");
+            response.put("error", "Invalid credentials");
+            return response;
         }
 
-        return user;
+
+        String token = jwtUtil.generateToken(user.getUsername(),user.getRole());
+        response.put("token", token);
+        response.put("userRole", user.getRole().name());
+        response.put("userName", user.getUsername());
+        return response;
     }
 
     public User getProfile(Long id) {

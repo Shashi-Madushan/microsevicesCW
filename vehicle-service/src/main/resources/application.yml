@@ -4,8 +4,26 @@ server:
     context-path: /vehicle-service
 
 spring:
+  config:
+    import: "configserver:"
   application:
     name: vehicle-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/vehicledb?createDatabaseIfNotExist=true
+    username: root
+    password: Ijse@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    jdbc:
+      dialect: mysql
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
 
 eureka:
   client:
