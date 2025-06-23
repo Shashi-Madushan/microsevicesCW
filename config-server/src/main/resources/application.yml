@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: file:///Users/shashimadushan/ideaprojects/config-repo
+          uri: file://Users/shashimadushan/ideaprojects/config-repo
           clone-on-start: true
           default-label: main
 
