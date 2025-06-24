@@ -7,4 +7,7 @@ import java.util.List;
 public interface ParkingSpotRepository extends JpaRepository<ParkingSpot, Long> {
     List<ParkingSpot> findByAvailableTrue();
     List<ParkingSpot> findByZone(String zone);
+    List<ParkingSpot> findByOwnerId(Long ownerId);
+    List<ParkingSpot> findByTypeAndZone(String type, String zone);
+    List<ParkingSpot> findByType(String type);
 }

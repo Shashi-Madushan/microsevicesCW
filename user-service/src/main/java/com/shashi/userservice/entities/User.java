@@ -23,6 +23,6 @@ public class User {
     private Role role = Role.DRIVER; // DRIVER, OWNER
 
     public  enum Role{
-        DRIVER,OWNER
+        DRIVER,OWNER,ADMIN
     }
 }

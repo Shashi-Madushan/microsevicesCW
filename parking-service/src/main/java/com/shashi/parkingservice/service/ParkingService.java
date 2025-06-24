@@ -76,4 +76,40 @@ public class ParkingService {
     public List<ParkingReservation> getReservationHistoryByUserId(Long userId) {
         return reservationRepo.findByUserId(userId);
     }
+
+    public List<ParkingSpot> getAllSpots() {
+        return spotRepo.findAll();
+    }
+
+    public List<ParkingReservation> getAllReservations() {
+        return reservationRepo.findAll();
+    }
+
+    public List<ParkingSpot> getSpotsByType(String type) {
+        return spotRepo.findByType(type);
+    }
+
+    public List<ParkingSpot> getSpotsByTypeAndZone(String type, String zone) {
+        return spotRepo.findByTypeAndZone(type, zone);
+    }
+
+    public List<ParkingSpot> getSpotsByOwner(Long ownerId) {
+        return spotRepo.findByOwnerId(ownerId);
+    }
+
+    public ParkingSpot updateSpot(Long spotId, ParkingSpotDto dto) {
+        ParkingSpot spot = spotRepo.findById(spotId)
+                .orElseThrow(() -> new RuntimeException("Spot not found"));
+        
+        spot.setLocation(dto.getLocation());
+        spot.setZone(dto.getZone());
+        spot.setType(dto.getType());
+        spot.setAvailable(dto.isAvailable());
+        
+        return spotRepo.save(spot);
+    }
+
+    public void deleteSpot(Long spotId) {
+        spotRepo.deleteById(spotId);
+    }
 }

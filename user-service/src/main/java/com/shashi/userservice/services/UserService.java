@@ -59,4 +59,17 @@ public class UserService {
         user.setPassword(updated.getPassword());
         return userRepository.save(user);
     }
+
+    // Admin: Get all users
+    public java.util.List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    // Admin: Delete user by id
+    public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("User not found");
+        }
+        userRepository.deleteById(id);
+    }
 }
