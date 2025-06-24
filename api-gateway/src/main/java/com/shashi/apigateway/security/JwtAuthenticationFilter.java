@@ -1,8 +1,5 @@
 package com.shashi.apigateway.security;
 
-
-
-
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -14,6 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+import java.util.Map;
+
 @Component
 public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
@@ -23,12 +23,22 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     private static final String AUTHORIZATION = "Authorization";
     private static final String BEARER = "Bearer ";
 
+    private static final Map<String, List<String>> roleAccessMap = Map.of(
+            "/admin", List.of("ADMIN"),
+            "/owner", List.of("OWNER"),
+            "/user", List.of("USER", "DRIVER"),
+            "/vehicles/user", List.of("USER", "DRIVER"),
+            "/payments/user", List.of("USER", "DRIVER"),
+            "/reservations/user", List.of("USER", "DRIVER"),
+            "/public", List.of("ANY") // Optional: allow public APIs
+    );
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getPath().toString();
 
-        // Bypass auth for login/register endpoints
-        if (path.contains("/auth") || path.contains("/login") || path.contains("/register")) {
+        // Bypass auth for public endpoints
+        if (path.contains("/auth") || path.contains("/login") || path.contains("/register") || path.contains("/public")) {
             return chain.filter(exchange);
         }
 
@@ -43,15 +53,28 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         }
 
         token = token.replace(BEARER, "");
-
         if (!jwtUtil.isTokenValid(token)) {
             return this.onError(exchange, "Invalid or Expired JWT Token", HttpStatus.UNAUTHORIZED);
         }
 
         Claims claims = jwtUtil.getClaims(token);
+        String userRole = claims.get("role", String.class);
+        String userId = claims.getSubject();
+
+        // Attach claims to request
         exchange.getRequest().mutate()
-                .header("userId", claims.getSubject())
-                .header("role", claims.get("role", String.class));
+                .header("userId", userId)
+                .header("role", userRole);
+
+        // Check role authorization
+        String[] pathParts = path.split("/", 4); // e.g., ["", "vehicle-service", "admin", "vehicles"]
+        if (pathParts.length >= 3) {
+            String accessKey = "/" + pathParts[2]; // e.g., "/admin"
+            List<String> allowedRoles = roleAccessMap.get(accessKey);
+            if (allowedRoles != null && !allowedRoles.contains(userRole)) {
+                return this.onError(exchange, "Forbidden: Role " + userRole + " not allowed for " + accessKey, HttpStatus.FORBIDDEN);
+            }
+        }
 
         return chain.filter(exchange);
     }

@@ -20,9 +20,9 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private Role role = Role.DRIVER; // DRIVER, OWNER
+    private Role role ; // DRIVER, OWNER
 
     public  enum Role{
-        DRIVER,OWNER,ADMIN
+        DRIVER,OWNER,ADMIN,USER
     }
 }
