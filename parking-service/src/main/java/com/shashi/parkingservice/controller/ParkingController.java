@@ -43,4 +43,9 @@ public class ParkingController {
     public ResponseEntity<ParkingReservation> release(@PathVariable Long reservationId) {
         return ResponseEntity.ok(parkingService.releaseSpot(reservationId));
     }
+
+    @GetMapping("/reservations/user/{userId}")
+    public ResponseEntity<List<ParkingReservation>> getReservationHistoryByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(parkingService.getReservationHistoryByUserId(userId));
+    }
 }

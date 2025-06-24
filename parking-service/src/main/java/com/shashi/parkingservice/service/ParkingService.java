@@ -71,4 +71,9 @@ public class ParkingService {
 
         return reservationRepo.save(res);
     }
+
+    // Get reservation history by user ID
+    public List<ParkingReservation> getReservationHistoryByUserId(Long userId) {
+        return reservationRepo.findByUserId(userId);
+    }
 }
