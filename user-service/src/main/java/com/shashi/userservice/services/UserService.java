@@ -40,7 +40,7 @@ public class UserService {
         }
 
 
-        String token = jwtUtil.generateToken(user.getUsername(),user.getRole());
+        String token = jwtUtil.generateToken(user.getId() ,user.getUsername(),user.getRole());
         response.put("token", token);
         response.put("userRole", user.getRole().name());
         response.put("userName", user.getUsername());
@@ -71,5 +71,8 @@ public class UserService {
             throw new RuntimeException("User not found");
         }
         userRepository.deleteById(id);
+    }
+    public boolean isIdPresent(Long id) {
+        return userRepository.existsById(id);
     }
 }

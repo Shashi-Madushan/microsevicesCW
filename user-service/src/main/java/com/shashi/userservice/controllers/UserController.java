@@ -14,7 +14,10 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
 
-
+    @GetMapping("/is-present")
+    public boolean isPresent(@RequestParam Long id) {
+        return userService.isIdPresent(id);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getProfile(@PathVariable Long id) {
