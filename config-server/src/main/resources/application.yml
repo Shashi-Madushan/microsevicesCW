@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: file://Users/shashimadushan/ideaprojects/config-repo
+          uri: https://github.com/Shashi-Madushan/config-repo-for_microservices.git
           clone-on-start: true
           default-label: main
 

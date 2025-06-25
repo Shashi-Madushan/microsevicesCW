@@ -1,0 +1,1087 @@
+{
+	"info": {
+		"_postman_id": "06c6bf2f-a52d-4d44-9f7b-fd5b45bb5874",
+		"name": "Smart Parking Management System - Full API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39165845"
+	},
+	"item": [
+		{
+			"name": "User Service",
+			"item": [
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "get all users",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFzaGkyIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUwNzg3ODE5LCJleHAiOjE3NTA3OTE0MTl9.c4kxiDjt0lmW3v7R3IOC4E613o2SpvQC_wwrESeyxF8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"shashi updated\",\n  \"email\": \"shashi_new@gmail.com\",\n  \"password\": \"newpass123\",\n  \"role\": \"DRIVER\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/user-service/admin/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user-service",
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get user information by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/user-service/admin//users/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user-service",
+										"admin",
+										"",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"shashi\",\n  \"email\": \"shashi@gmail.com\",\n  \"password\": \"pass123\",\n  \"role\": \"USER\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/user-service/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user-service",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Register a new user"
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"shashi2@gmail.com\",\n  \"password\": \"pass123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/user-service/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user-service",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login as a user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaGFzaGkiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDc4Nzc0MSwiZXhwIjoxNzUwNzkxMzQxfQ.MmEIpBqTPb95_7n5jGYqGpfCttqarxMVPWAA0NzOhoI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/user-service/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user-service",
+								"user",
+								"1"
+							]
+						},
+						"description": "Get user details"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"shashi updated\",\n  \"email\": \"shashi_new@gmail.com\",\n  \"password\": \"newpass123\",\n  \"role\": \"DRIVER\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/user-service/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user-service",
+								"user",
+								"1"
+							]
+						},
+						"description": "Update user info"
+					},
+					"response": []
+				},
+				{
+					"name": "is user precent",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"shashi updated\",\n  \"email\": \"shashi_new@gmail.com\",\n  \"password\": \"newpass123\",\n  \"role\": \"DRIVER\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/user-service/user/is-present?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"user-service",
+								"user",
+								"is-present"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicle Service",
+			"item": [
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "get all veheicles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/vehicle-service/admin/vehicles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"vehicle-service",
+										"admin",
+										"vehicles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/vehicle-service/admin/vehicles/count",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"vehicle-service",
+										"admin",
+										"vehicles",
+										"count"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Register Vehicle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"licensePlate\": \"XY-4567\",\n  \"model\": \"Honda Fit\",\n  \"color\": \"Silver\",\n  \"userId\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/vehicle-service/vehicles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vehicle-service",
+								"vehicles"
+							]
+						},
+						"description": "Register a vehicle"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicle by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/vehicle-service/vehicles/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vehicle-service",
+								"vehicles",
+								"1"
+							]
+						},
+						"description": "Get a vehicle"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicles by User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/vehicle-service/vehicles/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vehicle-service",
+								"vehicles",
+								"user",
+								"1"
+							]
+						},
+						"description": "Get all user vehicles"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vehicle",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"licensePlate\": \"XY-4567\",\n  \"model\": \"Toyota Prius\",\n  \"color\": \"Black\",\n  \"userId\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/vehicle-service/vehicles/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vehicle-service",
+								"vehicles",
+								"1"
+							]
+						},
+						"description": "Update vehicle details"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vehicle",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/vehicle-service/vehicles/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vehicle-service",
+								"vehicles",
+								"1"
+							]
+						},
+						"description": "Delete a vehicle"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parking Service",
+			"item": [
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "get all spots",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/parking-service/admin/parking/spots",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"parking-service",
+										"admin",
+										"parking",
+										"spots"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "gett all reservations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/parking-service/admin/parking/reservations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"parking-service",
+										"admin",
+										"parking",
+										"reservations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get by type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/parking-service/admin/parking/spots/type/PREMIUM",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"parking-service",
+										"admin",
+										"parking",
+										"spots",
+										"type",
+										"PREMIUM"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "GET http://localhost:8080/parking-service/admin/parking/spots/filter?type=PREMIUM&zone=B",
+									"protocol": "GET http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"parking-service",
+										"admin",
+										"parking",
+										"spots",
+										"filter"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "PREMIUM"
+										},
+										{
+											"key": "zone",
+											"value": "B"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "owner",
+					"item": [
+						{
+							"name": "get spots by owner id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/parking-service/owner/parking/spots/{ownerId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"parking-service",
+										"owner",
+										"parking",
+										"spots",
+										"{ownerId}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add parking spots",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"location\": \"Downtown Plaza\",\n    \"zone\": \"C\",\n    \"type\": \"PREMIUM\",\n    \"available\": true,\n    \"ownerId\": 100,\n    \"price\": 20.00\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/parking-service/owner/parking/spots",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"parking-service",
+										"owner",
+										"parking",
+										"spots"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update parking spots",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"location\": \"Downtown Plaza VIP\",\n    \"zone\": \"C\",\n    \"type\": \"PREMIUM\",\n    \"available\": true,\n    \"price\": 30.00\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "PUT http://localhost:8080/owner/parking/spots/4",
+									"protocol": "PUT http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"owner",
+										"parking",
+										"spots",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete spots",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/owner/parking/spots/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"owner",
+										"parking",
+										"spots",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reserve with payments",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userId\": 1,\n  \"parkingSpotId\": 1,\n  \"amount\": 25.0,\n  \"paymentMethod\": \"CARD\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/parking-service/parking/reserve/with-payment",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"parking-service",
+										"parking",
+										"reserve",
+										"with-payment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add Parking Spot",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"location\": \"Basement - B1\",\n  \"zone\": \"Downtown\",\n  \"type\": \"Covered\",\n  \"available\": true,\n  \"ownerId\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/parking-service/parking/spots",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-service",
+								"parking",
+								"spots"
+							]
+						},
+						"description": "Add a parking spot"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Spots",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/parking-service/parking/spots/available",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-service",
+								"parking",
+								"spots",
+								"available"
+							]
+						},
+						"description": "Available parking spots"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Spots by Zone",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/parking-service/parking/spots/zone/Downtown",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-service",
+								"parking",
+								"spots",
+								"zone",
+								"Downtown"
+							]
+						},
+						"description": "Parking spots in zone"
+					},
+					"response": []
+				},
+				{
+					"name": "Reserve Spot",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": 5,\n  \"parkingSpotId\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/parking-service/parking/reserve",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-service",
+								"parking",
+								"reserve"
+							]
+						},
+						"description": "Reserve a parking spot"
+					},
+					"response": []
+				},
+				{
+					"name": "Release Spot",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/parking-service/parking/release/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-service",
+								"parking",
+								"release",
+								"1"
+							]
+						},
+						"description": "Release a parking reservation"
+					},
+					"response": []
+				},
+				{
+					"name": "get Reservation Hsitory",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"shashi updated\",\n  \"email\": \"shashi_new@gmail.com\",\n  \"password\": \"newpass123\",\n  \"role\": \"DRIVER\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/parking-service/reservations/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parking-service",
+								"reservations",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Service",
+			"item": [
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "get all payments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/payment-service/admin/payments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"payment-service",
+										"admin",
+										"payments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get payments by status",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/payment-service/admin/payments/status/sucsess",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"payment-service",
+										"admin",
+										"payments",
+										"status",
+										"sucsess"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "monthly payment status",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/payment-service/admin/payments/status",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"payment-service",
+										"admin",
+										"payments",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Make Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": 1,\n  \"reservationId\": 100,\n  \"amount\": 12.5,\n  \"method\": \"CARD\",\n  \"cardNumber\": \"4111111111111111\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/payment-service/payments/pay",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payment-service",
+								"payments",
+								"pay"
+							]
+						},
+						"description": "Simulate a payment transaction"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/payment-service/payments/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payment-service",
+								"payments",
+								"1"
+							]
+						},
+						"description": "Get payment by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payments by User ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/payment-service/payments/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payment-service",
+								"payments",
+								"user",
+								"1"
+							]
+						},
+						"description": "Get all payments for a user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment by Reservation ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/payment-service/payments/reservation/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payment-service",
+								"payments",
+								"reservation",
+								"100"
+							]
+						},
+						"description": "Get payment by reservation ID"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
