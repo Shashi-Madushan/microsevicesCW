@@ -16,7 +16,7 @@ public class ParkingReservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;          // Driver
+    private Long userId;
     private Long parkingSpotId;
 
     private LocalDateTime reservedAt;

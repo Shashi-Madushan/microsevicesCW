@@ -61,10 +61,12 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         String userRole = claims.get("role", String.class);
         String userId = claims.getSubject();
 
-        // Attach claims to request
+        // Enhanced request mutation to include X-User-ID header
         exchange.getRequest().mutate()
-                .header("userId", userId)
-                .header("role", userRole);
+                .header("X-User-ID", userId)  // Standard way to forward user ID
+                .header("userId", userId)     // Keep existing header for backward compatibility
+                .header("role", userRole)
+                .build();
 
         // Check role authorization
         String[] pathParts = path.split("/", 4); // e.g., ["", "vehicle-service", "admin", "vehicles"]

@@ -1,10 +1,12 @@
 package com.shashi.parkingservice.service;
 
 
+import com.shashi.parkingservice.clients.PaymentClient;
+import com.shashi.parkingservice.clients.UserClient;
 import com.shashi.parkingservice.dto.ParkingReservationDto;
 import com.shashi.parkingservice.dto.ParkingSpotDto;
-import com.shashi.parkingservice.model.ParkingReservation;
-import com.shashi.parkingservice.model.ParkingSpot;
+import com.shashi.parkingservice.dto.ReservationRequestDto;
+import com.shashi.parkingservice.model.*;
 import com.shashi.parkingservice.repository.ParkingReservationRepository;
 import com.shashi.parkingservice.repository.ParkingSpotRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ParkingService {
+    private final UserClient userClient;
+
+
+    private final PaymentClient paymentClient;
 
     private final ParkingSpotRepository spotRepo;
     private final ParkingReservationRepository reservationRepo;
@@ -112,4 +118,46 @@ public class ParkingService {
     public void deleteSpot(Long spotId) {
         spotRepo.deleteById(spotId);
     }
+
+    public ParkingReservation reserveSpotAndPay(ReservationRequestDto dto) {
+        Long userId = dto.getUserId();
+        Long parkingSpotId = dto.getParkingSpotId();
+
+        // Step 1: Check if user exists
+        try {
+            boolean isFound = userClient.isFound(userId);
+            if (!isFound) throw new RuntimeException("User not found");
+            System.out.println("User found: " + userId);
+        } catch (Exception e) {
+            throw new RuntimeException("User not found.");
+        }
+
+        // Step 2: Create temporary reservation
+        ParkingReservation reservation = new ParkingReservation();
+        reservation.setUserId(userId);
+        reservation.setParkingSpotId(parkingSpotId);
+        reservation.setStatus("PENDING");
+
+        reservation = reservationRepo.save(reservation); // Get ID
+
+        // Step 3: Process payment
+        PaymentRequestDto paymentDto = new PaymentRequestDto();
+        paymentDto.setUserId(userId);
+        paymentDto.setReservationId(reservation.getId());
+        paymentDto.setAmount(dto.getAmount());
+        paymentDto.setMethod(dto.getPaymentMethod());
+
+        try {
+            Payment payment = paymentClient.makePayment(paymentDto);
+            System.out.println("Payment ID: " + payment.getId());
+        } catch (Exception e) {
+            reservationRepo.deleteById(reservation.getId());
+            throw new RuntimeException("Payment failed. Reservation cancelled.");
+        }
+
+        // Step 4: Confirm reservation
+        reservation.setStatus("CONFIRMED");
+        return reservationRepo.save(reservation);
+    }
+
 }

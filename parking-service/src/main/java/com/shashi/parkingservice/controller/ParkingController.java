@@ -3,6 +3,7 @@ package com.shashi.parkingservice.controller;
 
 import com.shashi.parkingservice.dto.ParkingReservationDto;
 import com.shashi.parkingservice.dto.ParkingSpotDto;
+import com.shashi.parkingservice.dto.ReservationRequestDto;
 import com.shashi.parkingservice.model.ParkingReservation;
 import com.shashi.parkingservice.model.ParkingSpot;
 import com.shashi.parkingservice.service.ParkingService;
@@ -48,4 +49,12 @@ public class ParkingController {
     public ResponseEntity<List<ParkingReservation>> getReservationHistoryByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(parkingService.getReservationHistoryByUserId(userId));
     }
+
+    @PostMapping("/reserve/with-payment")
+    public ResponseEntity<ParkingReservation> reserveWithPayment(
+            @RequestBody ReservationRequestDto requestDto) {
+        return ResponseEntity.ok(parkingService.reserveSpotAndPay(requestDto));
+    }
+
+
 }
